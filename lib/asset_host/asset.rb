@@ -5,7 +5,7 @@ module AssetHost
   class Asset
     class Fallback < Asset
       def initialize
-        json = JSON.parse(File.read(File.join(Asset.fallback_root, "asset.json")))
+        json = JSON.parse(File.read(File.join(AssetHost.fallback_root, "asset.json")))
         super(json)
       end
     end
@@ -16,10 +16,6 @@ module AssetHost
     #-------------------
     
     class << self
-      def fallback_root
-        @fallback_root ||= Rails.root.join('lib', 'asset_host_client', 'fallback')
-      end
-
       def config
         @config ||= Rails.application.config.assethost
       end
@@ -41,7 +37,7 @@ module AssetHost
           if !GOOD_STATUS.include? resp.status
             # A last-resort fallback - assethost not responding and outputs not in cache
             # Should we just use this every time?
-            outputs = JSON.parse(File.read(File.join(self.fallback_root, "outputs.json")))
+            outputs = JSON.parse(File.read(File.join(AssetHost.fallback_root, "outputs.json")))
           else
             outputs = resp.body
             Rails.cache.write(key, outputs)
