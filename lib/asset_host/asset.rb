@@ -131,8 +131,10 @@ module AssetHost
     end
 
     def method_missing(method, *args)
-      if output = Asset.outputs.find { |output| output['code'] == method }
+      if output = Asset.outputs.find { |output| output['code'] == method.to_s }
         self._size(output)
+      else
+        super
       end
     end
   end
