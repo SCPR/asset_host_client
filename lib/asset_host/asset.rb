@@ -1,11 +1,11 @@
 require 'faraday'
 require 'faraday_middleware'
 
-module AssetHostClient
+module AssetHost
   class Asset
     class Fallback < Asset
       def initialize
-        json = JSON.parse(File.read(File.join(Asset.fallback_root, "fallback", "asset_fallback.json")))
+        json = JSON.parse(File.read(File.join(Asset.fallback_root, "asset.json")))
         super(json)
       end
     end
@@ -17,7 +17,7 @@ module AssetHostClient
     
     class << self
       def fallback_root
-        Rails.root.join('lib', 'asset_host_client', 'fallback')
+        @fallback_root ||= Rails.root.join('lib', 'asset_host_client', 'fallback')
       end
 
       def config
@@ -80,12 +80,27 @@ module AssetHostClient
         end
       end
 
+
+      #-----------------
+
+      def create(params={})
+        response = connection.post do |request|
+          request.url "#{Rails.application.config.assethost.prefix}/as_asset"
+          request.params = @params.merge(params)
+        end
+        
+        response.body
+      end
+
+
       def connection
         @connection ||= begin
-          Faraday.new("http://#{config.server}", params: { auth_token: config.token }) do |c|
-            c.use FaradayMiddleware::ParseJson, content_type: /\bjson$/
-            c.use FaradayMiddleware::Instrumentation
-            c.adapter Faraday.default_adapter
+          Faraday.new(
+            :url    => "http://#{Rails.application.config.assethost.server}", 
+            :params => { auth_token: Rails.application.config.assethost.token }
+          ) do |conn|
+            conn.response :json
+            conn.adapter Faraday.default_adapter
           end
         end
       end

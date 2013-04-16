@@ -1,4 +1,4 @@
-module AssetHostClient
+module AssetHost
   class AssetSize
     attr_accessor  :width, :height, :tag, :url, :asset, :output
       

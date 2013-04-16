@@ -6,9 +6,11 @@ Client for AssetHost API interaction.
 
     gem 'asset_host_client'
 
+The gem is "AssetHostClient", so it doesn't get mixed up with "AssetHost".
+However, it creates and/or extends the "AssetHost" module.
 ## Usage
 
-`AssetHostClient::Asset.find(asset_id)`
+`AssetHost::Asset.find(asset_id)`
 
 You should also provide fallback JSON files at 
 `lib/asset_host_client/fallback/asset_fallback.json` and 
