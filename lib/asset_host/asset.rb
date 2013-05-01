@@ -121,7 +121,7 @@ module AssetHost
     #----------
     
     def _size(output)
-      @_sizes[ output['code'] ] ||= AssetSize.new(self,output)
+      @_sizes[ output['code'] ] ||= AssetSize.new(self, output)
     end
     
     #----------
