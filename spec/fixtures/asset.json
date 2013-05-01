@@ -1,0 +1,85 @@
+{
+  "id": 55966,
+  "title": "Futurama",
+  "caption": "Futurama is brought to you by... Glagnar's Human Rinds! It's a buncha muncha cruncha human!",
+  "owner": "Futurama",
+  "size": "286x257",
+  "sizes": {
+    "thumb": {
+      "width": 86,
+      "height": 87
+    },
+    "lsquare": {
+      "width": 183,
+      "height": 187
+    },
+    "lead": {
+      "width": 286,
+      "height": 257
+    },
+    "wide": {
+      "width": 286,
+      "height": 257
+    },
+    "full": {
+      "width": 286,
+      "height": 257
+    },
+    "six": {
+      "width": 286,
+      "height": 257
+    },
+    "eight": {
+      "width": 286,
+      "height": 257
+    },
+    "four": {
+      "width": 286,
+      "height": 257
+    },
+    "three": {
+      "width": 255,
+      "height": 229
+    },
+    "five": {
+      "width": 286,
+      "height": 257
+    },
+    "small": {
+      "width": 286,
+      "height": 257
+    }
+  },
+  "tags": {
+    "thumb": "<img src=\"http://a.scpr.org/i/8f185f3605ea8bf958ed13feff8919d9/55966-thumb.jpg\" width=\"86\" height=\"87\" alt=\"Futurama\" />",
+    "lsquare": "<img src=\"http://a.scpr.org/i/8f185f3605ea8bf958ed13feff8919d9/55966-lsquare.jpg\" width=\"183\" height=\"187\" alt=\"Futurama\" />",
+    "lead": "<img src=\"http://a.scpr.org/i/8f185f3605ea8bf958ed13feff8919d9/55966-lead.jpg\" width=\"286\" height=\"257\" alt=\"Futurama\" />",
+    "wide": "<img src=\"http://a.scpr.org/i/8f185f3605ea8bf958ed13feff8919d9/55966-wide.jpg\" width=\"286\" height=\"257\" alt=\"Futurama\" />",
+    "full": "<img src=\"http://a.scpr.org/i/8f185f3605ea8bf958ed13feff8919d9/55966-full.jpg\" width=\"286\" height=\"257\" alt=\"Futurama\" />",
+    "six": "<img src=\"http://a.scpr.org/i/8f185f3605ea8bf958ed13feff8919d9/55966-six.jpg\" width=\"286\" height=\"257\" alt=\"Futurama\" />",
+    "eight": "<img src=\"http://a.scpr.org/i/8f185f3605ea8bf958ed13feff8919d9/55966-eight.jpg\" width=\"286\" height=\"257\" alt=\"Futurama\" />",
+    "four": "<img src=\"http://a.scpr.org/i/8f185f3605ea8bf958ed13feff8919d9/55966-four.jpg\" width=\"286\" height=\"257\" alt=\"Futurama\" />",
+    "three": "<img src=\"http://a.scpr.org/i/8f185f3605ea8bf958ed13feff8919d9/55966-three.jpg\" width=\"255\" height=\"229\" alt=\"Futurama\" />",
+    "five": "<img src=\"http://a.scpr.org/i/8f185f3605ea8bf958ed13feff8919d9/55966-five.jpg\" width=\"286\" height=\"257\" alt=\"Futurama\" />",
+    "small": "<img src=\"http://a.scpr.org/i/8f185f3605ea8bf958ed13feff8919d9/55966-small.jpg\" width=\"286\" height=\"257\" alt=\"Futurama\" />"
+  },
+  "urls": {
+    "thumb": "http://a.scpr.org/i/8f185f3605ea8bf958ed13feff8919d9/55966-thumb.jpg",
+    "lsquare": "http://a.scpr.org/i/8f185f3605ea8bf958ed13feff8919d9/55966-lsquare.jpg",
+    "lead": "http://a.scpr.org/i/8f185f3605ea8bf958ed13feff8919d9/55966-lead.jpg",
+    "wide": "http://a.scpr.org/i/8f185f3605ea8bf958ed13feff8919d9/55966-wide.jpg",
+    "full": "http://a.scpr.org/i/8f185f3605ea8bf958ed13feff8919d9/55966-full.jpg",
+    "six": "http://a.scpr.org/i/8f185f3605ea8bf958ed13feff8919d9/55966-six.jpg",
+    "eight": "http://a.scpr.org/i/8f185f3605ea8bf958ed13feff8919d9/55966-eight.jpg",
+    "four": "http://a.scpr.org/i/8f185f3605ea8bf958ed13feff8919d9/55966-four.jpg",
+    "three": "http://a.scpr.org/i/8f185f3605ea8bf958ed13feff8919d9/55966-three.jpg",
+    "five": "http://a.scpr.org/i/8f185f3605ea8bf958ed13feff8919d9/55966-five.jpg",
+    "small": "http://a.scpr.org/i/8f185f3605ea8bf958ed13feff8919d9/55966-small.jpg"
+  },
+  "url": "http://a.scpr.org/api/assets/55966/",
+  "notes": "Fetched from URL: http://i.imgur.com/0csRtwS.png?2",
+  "created_at": "2013-02-28T20:01:46Z",
+  "taken_at": "2013-02-28T20:01:46Z",
+  "native": null,
+  "image_file_size": 99450
+}

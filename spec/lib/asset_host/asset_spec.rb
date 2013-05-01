@@ -18,7 +18,7 @@ describe AssetHost::Asset do
     end
     
     it "uses the cached version if it exists" do
-      Rails.cache.read("assets/outputs").should be_nil
+      Rails.cache.read("assets/outputs").should eq nil
       Rails.cache.write("assets/outputs", "OUTPUTS!")
       AssetHost::Asset.outputs.should eq "OUTPUTS!"
     end
@@ -30,8 +30,7 @@ describe AssetHost::Asset do
     
     it "returns fallback outputs if the API can't be reached" do
       Faraday::Response.any_instance.stub(:status) { 500 }
-      JSON.should_receive(:parse).with(File.read(File.join(AssetHost.fallback_root, "outputs.json"))).and_return({ some: "outputs" })
-      AssetHost::Asset.outputs.should eq({ some: "outputs" })
+      AssetHost::Asset.outputs.should eq(load_fallback("outputs.json"))
     end
     
     it "writes to cache on successful API response" do
@@ -44,7 +43,7 @@ describe AssetHost::Asset do
   
   describe "find" do
     it "returns cached asset json if it exists" do
-      Rails.cache.read("asset/asset-1").should be_nil
+      Rails.cache.read("asset/asset-1").should eq nil
       AssetHost::Asset.should_receive(:new).with("AssetHost::Asset #1").and_return("Okedoke")
       Rails.cache.write("asset/asset-1", "AssetHost::Asset #1")
       AssetHost::Asset.find(1).should eq "Okedoke"
@@ -77,12 +76,12 @@ describe AssetHost::Asset do
     
     context "good response" do
       it "writes to cache" do
-        Rails.cache.should_receive(:write).with("asset/asset-1", JSON.load(load_fixture("assethost_asset.json")))
+        Rails.cache.should_receive(:write).with("asset/asset-1", load_fixture("asset.json"))
         AssetHost::Asset.find(1)
       end
       
       it "creates a new asset from the json" do
-        AssetHost::Asset.should_receive(:new).with(JSON.load(load_fixture("assethost_asset.json")))
+        AssetHost::Asset.should_receive(:new).with(load_fixture("asset.json"))
         AssetHost::Asset.find(1)
       end
     end
