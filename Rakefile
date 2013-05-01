@@ -11,3 +11,4 @@ Combustion.initialize!
 Combustion::Application.load_tasks
 
 RSpec::Core::RakeTask.new(:test)
+task default: :test

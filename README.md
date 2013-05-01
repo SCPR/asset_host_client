@@ -2,6 +2,8 @@
 
 Client for AssetHost API interaction.
 
+[![Build Status](https://travis-ci.org/SCPR/asset_host_client.png?branch=master)](https://travis-ci.org/SCPR/asset_host_client)
+
 
 ## Installation
 
