@@ -28,3 +28,5 @@ in an initializer.
 ## Contributing
 
 Sure!
+
+`rake test` to run tests.
