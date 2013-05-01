@@ -6,7 +6,7 @@ require 'asset_host_client/version'
 Gem::Specification.new do |spec|
   spec.name          = "asset_host_client"
   spec.version       = AssetHostClient::VERSION
-  spec.authors       = ["Bryan Ricker"]
+  spec.authors       = ["Bryan Ricker", "Eric Richardson"]
   spec.email         = ["bricker88@gmail.com"]
   spec.description   = %q{Client for AssetHost}
   spec.summary       = %q{Client for AssetHost API interaction.}
