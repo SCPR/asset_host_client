@@ -25,6 +25,7 @@ Configure your app to connect to assethost, either in an initializer or your env
   config.assethost.prefix  = "/api"
 ```
 
+
 ### Finding
 
 `AssetHost::Asset.find(asset_id)`
