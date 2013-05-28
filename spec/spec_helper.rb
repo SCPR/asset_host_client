@@ -20,6 +20,7 @@ AH_JSON = {
 }
 
 FakeWeb.register_uri(:any, %r|assets\.mysite\.com\/api\/outputs|, body: AH_JSON[:outputs], content_type: "application/json")
+FakeWeb.register_uri(:any, %r|assets\.mysite\.com\/api\/as_asset|, body: AH_JSON[:asset], content_type: "application/json")
 FakeWeb.register_uri(:any, %r|assets\.mysite\.com\/api\/assets|, body: AH_JSON[:asset], content_type: "application/json")
 
 

@@ -89,6 +89,21 @@ describe AssetHost::Asset do
   
   #-------------------
   
+  describe '::create' do
+    it 'sends an Asset to the API and builds and object from the response if it is success' do
+      asset = AssetHost::Asset.create({ title: "New Asset" })
+      asset.should be_a AssetHost::Asset
+    end
+
+    it 'returns false if response is not success' do
+      Faraday::Response.any_instance.should_receive(:success?).and_return(false)
+      asset = AssetHost::Asset.create({ title: "New Asset" })
+      asset.should eq false
+    end
+  end
+
+  #-------------------
+
   it "generates AssetHost::Asset Sizes for each output" do
     asset = AssetHost::Asset.find(1) # stubbed response
     asset.thumb.should be_a AssetHost::AssetSize

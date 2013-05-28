@@ -82,10 +82,14 @@ module AssetHost
       def create(params={})
         response = connection.post do |request|
           request.url "#{Rails.application.config.assethost.prefix}/as_asset"
-          request.params = @params.merge(params)
+          request.params = params
         end
         
-        response.body
+        if response.success?
+          new(response.body)
+        else
+          false
+        end
       end
 
 
