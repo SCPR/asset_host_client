@@ -79,12 +79,13 @@ module AssetHost
 
       #-----------------
 
-      def create(params={})
+      def create(attributes={})
         response = connection.post do |request|
           request.url "#{Rails.application.config.assethost.prefix}/as_asset"
-          request.params = params
+          request.params = request.params.merge(attributes)
+          request.headers['Content-Type'] = "application/json"
         end
-        
+
         if response.success?
           new(response.body)
         else
