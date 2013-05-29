@@ -30,12 +30,14 @@ module AssetHost
             return cached
           end
           
-          resp = self.connection.get("#{config.prefix}/outputs")
+          response = connection.get "#{config.prefix}/outputs" do |request|
+            request.headers['Content-Type'] = 'application/json'
+          end
           
-          if !GOOD_STATUS.include? resp.status
+          if !GOOD_STATUS.include? response.status
             outputs = JSON.parse(File.read(File.join(AssetHost.fallback_root, "outputs.json")))
           else
-            outputs = resp.body
+            outputs = response.body
             Rails.cache.write(key, outputs)
           end
           
@@ -51,20 +53,22 @@ module AssetHost
         key = "asset/asset-#{id}"
         
         if cached = Rails.cache.read(key)
-          return self.new(cached)
+          return new(cached)
         end
         
-        resp = connection.get("#{config.prefix}/assets/#{id}")
-
-        if !GOOD_STATUS.include? resp.status
-          return Fallback.new
-        else
-          json = resp.body
-          
-          Rails.cache.write(key,json)
-          
-          return self.new(json)
+        response = connection.get "#{config.prefix}/assets/#{id}" do |request|
+          request.headers['Content-Type'] = 'application/json'
         end
+
+        if !GOOD_STATUS.include? response.status
+          asset = Fallback.new
+        else
+          json = response.body
+          Rails.cache.write(key, json)
+          asset = new(json)
+        end
+
+        asset
       end
 
 
