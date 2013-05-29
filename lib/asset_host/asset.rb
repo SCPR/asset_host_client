@@ -30,9 +30,7 @@ module AssetHost
             return cached
           end
           
-          response = connection.get "#{config.prefix}/outputs" do |request|
-            request.headers['Content-Type'] = 'application/json'
-          end
+          response = connection.get "#{config.prefix}/outputs"
           
           if !GOOD_STATUS.include? response.status
             outputs = JSON.parse(File.read(File.join(AssetHost.fallback_root, "outputs.json")))
@@ -56,16 +54,14 @@ module AssetHost
           return new(cached)
         end
         
-        response = connection.get "#{config.prefix}/assets/#{id}" do |request|
-          request.headers['Content-Type'] = 'application/json'
-        end
+        response = connection.get "#{config.prefix}/assets/#{id}"
+        json = response.body
 
-        if !GOOD_STATUS.include? response.status
+        if !GOOD_STATUS.include?(response.status.to_i) || !json
           asset = Fallback.new
         else
-          json = response.body
-          Rails.cache.write(key, json)
           asset = new(json)
+          Rails.cache.write(key, json)
         end
 
         asset
@@ -76,25 +72,30 @@ module AssetHost
 
       def create(attributes={})
         response = connection.post do |request|
-          request.url "#{Rails.application.config.assethost.prefix}/as_asset"
-          request.params = request.params.merge(attributes)
-          request.headers['Content-Type'] = "application/json"
+          request.url "#{config.prefix}/as_asset"
+          request.body = attributes
         end
 
-        if response.success?
-          new(response.body)
+        json = response.body
+
+        if response.success? && json
+          asset = new(json)
+          Rails.cache.write("asset/asset-#{asset.id}", json)
         else
-          false
+          return false
         end
+
+        asset
       end
 
 
       def connection
         @connection ||= begin
           Faraday.new(
-            :url    => "http://#{Rails.application.config.assethost.server}", 
-            :params => { auth_token: Rails.application.config.assethost.token }
+            :url    => "http://#{config.server}", 
+            :params => { auth_token: config.token }
           ) do |conn|
+            conn.request :json
             conn.response :json
             conn.adapter Faraday.default_adapter
           end
@@ -104,20 +105,31 @@ module AssetHost
     
     #----------
     
-    attr_accessor :json, :caption, :title, :id, :size, :taken_at, :owner, :url, :api_url, :native, :image_file_size
+    ATTRIBUTES = [
+      :caption,
+      :title,
+      :id,
+      :size,
+      :taken_at,
+      :owner,
+      :url,
+      :api_url,
+      :native,
+      :image_file_size
+    ]
+
+    attr_accessor :json
+    attr_accessor *ATTRIBUTES
 
     def initialize(json)
       @json = json
       @_sizes = {}
 
-      # define some attributes
-      [
-        :caption, :title, :id, :size,
-        :taken_at, :owner, :url, :api_url,
-        :native, :image_file_size
-      ].each { |key| self.send("#{key}=", @json[key.to_s]) }
+      ATTRIBUTES.map(&:to_s).each do |attribute|
+        send "#{attribute}=", @json[attribute]
+      end
     end
-    
+
     #----------
     
     def _size(output)
