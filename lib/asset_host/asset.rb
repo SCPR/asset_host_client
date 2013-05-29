@@ -26,17 +26,13 @@ module AssetHost
         @outputs ||= begin
           key = "assets/outputs"
 
-          # If the outputs are stored in cache, use those
           if cached = Rails.cache.read(key)
             return cached
           end
           
-          # Otherwise make a request
           resp = self.connection.get("#{config.prefix}/outputs")
           
           if !GOOD_STATUS.include? resp.status
-            # A last-resort fallback - assethost not responding and outputs not in cache
-            # Should we just use this every time?
             outputs = JSON.parse(File.read(File.join(AssetHost.fallback_root, "outputs.json")))
           else
             outputs = resp.body
@@ -51,16 +47,13 @@ module AssetHost
       
       # asset = Asset.find(id)
       # Given an asset ID, returns an asset object
-      #
       def find(id)
         key = "asset/asset-#{id}"
         
         if cached = Rails.cache.read(key)
-          # cache hit -- instantiate from the cached json
           return self.new(cached)
         end
         
-        # missed... request it from the server
         resp = connection.get("#{config.prefix}/assets/#{id}")
 
         if !GOOD_STATUS.include? resp.status
@@ -68,10 +61,8 @@ module AssetHost
         else
           json = resp.body
           
-          # write this asset into cache
           Rails.cache.write(key,json)
           
-          # now create an asset and return it
           return self.new(json)
         end
       end
