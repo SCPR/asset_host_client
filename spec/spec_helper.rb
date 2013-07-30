@@ -5,6 +5,11 @@ unless defined?(RAKED)
   Combustion.initialize!
 end
 
+if ENV['CIRCLECI']
+  # I don't know why
+  require 'rails/all'
+end
+
 require 'rspec/rails'
 require 'fakeweb'
 
