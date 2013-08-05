@@ -5,7 +5,7 @@ unless defined?(RAKED)
   Combustion.initialize!
 end
 
-if ENV['CIRCLECI']
+if ENV['CI']
   # I don't know why
   require 'rails/all'
 end
