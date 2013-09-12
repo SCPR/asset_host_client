@@ -24,9 +24,9 @@ AH_JSON = {
   :outputs => File.read(File.expand_path("spec/fixtures/outputs.json"))
 }
 
-FakeWeb.register_uri(:any, %r|assets\.mysite\.com\/api\/outputs|, body: AH_JSON[:outputs], content_type: "application/json")
-FakeWeb.register_uri(:any, %r|assets\.mysite\.com\/api\/as_asset|, body: AH_JSON[:asset], content_type: "application/json")
-FakeWeb.register_uri(:any, %r|assets\.mysite\.com\/api\/assets|, body: AH_JSON[:asset], content_type: "application/json")
+FakeWeb.register_uri(:get, %r|assets\.mysite\.com\/api\/outputs|, body: AH_JSON[:outputs], content_type: "application/json")
+FakeWeb.register_uri(:post, %r|assets\.mysite\.com\/api\/assets|, body: AH_JSON[:asset], content_type: "application/json")
+FakeWeb.register_uri(:get, %r|assets\.mysite\.com\/api\/assets|, body: AH_JSON[:asset], content_type: "application/json")
 
 
 

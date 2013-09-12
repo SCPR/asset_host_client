@@ -72,7 +72,7 @@ module AssetHost
 
       def create(attributes={})
         response = connection.post do |request|
-          request.url "#{config.prefix}/as_asset"
+          request.url "#{config.prefix}/assets"
           request.body = attributes
         end
 
