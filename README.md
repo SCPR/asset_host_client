@@ -1,6 +1,6 @@
 # AssetHostClient
 
-Client for AssetHost API interaction.
+Simple Ruby client for the AssetHost API.
 
 [![Build Status](https://travis-ci.org/SCPR/asset_host_client.png?branch=master)](https://travis-ci.org/SCPR/asset_host_client)
 
