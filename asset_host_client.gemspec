@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = AssetHostClient::VERSION
   spec.authors       = ["Bryan Ricker", "Eric Richardson"]
   spec.email         = ["bricker88@gmail.com"]
-  spec.description   = %q{Client for AssetHost}
-  spec.summary       = %q{Client for AssetHost API interaction.}
+  spec.description   = %q{Ruby client for AssetHost}
+  spec.summary       = %q{Ruby client for AssetHost API interaction.}
   spec.homepage      = "https://github.com/SCPR/asset_host_client"
   spec.license       = "MIT"
 
