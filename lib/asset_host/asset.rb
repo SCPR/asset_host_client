@@ -130,6 +130,10 @@ module AssetHost
       end
     end
 
+    def is_rich?
+      self.native.present?
+    end
+
     #----------
 
     def _size(output)

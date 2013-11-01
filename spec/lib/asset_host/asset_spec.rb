@@ -109,4 +109,16 @@ describe AssetHost::Asset do
     asset.thumb.should be_a AssetHost::AssetSize
     asset.lsquare.should be_a AssetHost::AssetSize
   end
+
+  describe '#is_rich?' do
+    it 'is true for rich assets' do
+      asset = AssetHost::Asset.new(load_fixture("asset_with_video.json"))
+      asset.is_rich?.should eq true
+    end
+
+    it 'is false for non-rich assets' do
+      asset = AssetHost::Asset.new(load_fixture("asset.json"))
+      asset.is_rich?.should eq false
+    end
+  end
 end
