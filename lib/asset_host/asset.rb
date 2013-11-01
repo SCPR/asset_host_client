@@ -12,16 +12,16 @@ module AssetHost
 
     BAD_STATUS  = [400, 404, 500, 502]
     GOOD_STATUS = [200]
-    
+
     #-------------------
-    
+
     class << self
       def config
         @config ||= Rails.application.config.assethost
       end
-      
+
       #-------------------
-      
+
       def outputs
         @outputs ||= begin
           key = "assets/outputs"
@@ -29,31 +29,31 @@ module AssetHost
           if cached = Rails.cache.read(key)
             return cached
           end
-          
+
           response = connection.get "#{config.prefix}/outputs"
-          
+
           if !GOOD_STATUS.include? response.status
             outputs = JSON.parse(File.read(File.join(AssetHost.fallback_root, "outputs.json")))
           else
             outputs = response.body
             Rails.cache.write(key, outputs)
           end
-          
+
           outputs
         end
       end
-    
+
       #-------------------
-      
+
       # asset = Asset.find(id)
       # Given an asset ID, returns an asset object
       def find(id)
         key = "asset/asset-#{id}"
-        
+
         if cached = Rails.cache.read(key)
           return new(cached)
         end
-        
+
         response = connection.get "#{config.prefix}/assets/#{id}"
         json = response.body
 
@@ -92,7 +92,7 @@ module AssetHost
       def connection
         @connection ||= begin
           Faraday.new(
-            :url    => "http://#{config.server}", 
+            :url    => "http://#{config.server}",
             :params => { auth_token: config.token }
           ) do |conn|
             conn.request :json
@@ -102,9 +102,9 @@ module AssetHost
         end
       end
     end
-    
+
     #----------
-    
+
     ATTRIBUTES = [
       :caption,
       :title,
@@ -131,13 +131,13 @@ module AssetHost
     end
 
     #----------
-    
+
     def _size(output)
       @_sizes[ output['code'] ] ||= AssetSize.new(self, output)
     end
-    
+
     #----------
-    
+
     def as_json(options={})
       @json
     end
