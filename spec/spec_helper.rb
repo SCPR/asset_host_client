@@ -40,7 +40,7 @@ RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
 
   config.include JSONLoader
-  
+
   config.after :each do
     Rails.cache.clear
   end
