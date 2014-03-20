@@ -1,6 +1,5 @@
-## Changelog
-
-### v1.2.0
+### 1.2.0
+#### Additions
 * Added `Asset#is_rich?` to check if an asset is rich (instead of having to
   check the Native object directly).
 
