@@ -7,7 +7,7 @@ require 'rspec/core/rake_task'
 require 'combustion'
 
 Bundler.require :default, :test
-Combustion.initialize!
+Combustion.initialize! :action_view, :action_controller
 Combustion::Application.load_tasks
 
 RSpec::Core::RakeTask.new(:test)

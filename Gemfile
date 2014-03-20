@@ -1,4 +1,10 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in asset_host_client.gemspec
+group :test do
+  gem 'rails'
+  gem 'combustion'
+  gem 'rspec-rails'
+  gem 'fakeweb'
+end
+
 gemspec
