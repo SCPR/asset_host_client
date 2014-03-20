@@ -1,9 +1,7 @@
 require 'combustion'
 
-unless defined?(RAKED)
-  Bundler.require :default, :test
-  Combustion.initialize! :action_view, :action_controller
-end
+Bundler.require :default, :test
+Combustion.initialize! :action_view, :action_controller
 
 if ENV['CI']
   # I don't know why
