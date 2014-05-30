@@ -1,3 +1,6 @@
+### 1.2.1
+* Maintenance update
+
 ### 1.2.0
 #### Additions
 * Added `Asset#is_rich?` to check if an asset is rich (instead of having to
