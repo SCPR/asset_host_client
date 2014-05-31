@@ -3,11 +3,6 @@ require 'combustion'
 Bundler.require :default, :test
 Combustion.initialize! :action_view, :action_controller
 
-if ENV['CI']
-  # I don't know why
-  require 'rails/all'
-end
-
 require 'rspec/rails'
 require 'fakeweb'
 
