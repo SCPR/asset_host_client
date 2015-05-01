@@ -1,6 +1,7 @@
 Combustion::Application.configure do
-  config.assethost          = ActiveSupport::OrderedOptions.new
-  config.assethost.server   = "assets.mysite.com"
-  config.assethost.token    = "secrettoken"
-  config.assethost.prefix   = "/api"
+  AssetHostClient.setup do |config|
+    config.server   = "assets.mysite.com"
+    config.token    = "secrettoken"
+    config.prefix   = "/api"
+  end
 end

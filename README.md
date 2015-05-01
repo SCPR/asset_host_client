@@ -20,11 +20,11 @@ However, it creates and/or extends the "AssetHost" module.
 Configure your app to connect to assethost, either in an initializer or your environment files:
 
 ```ruby
-  config.assethost = ActiveSupport::OrderedOptions.new
-
-  config.assethost.server  = "assets.yoursite.org"
-  config.assethost.token  = "{your assethost token}" 
-  config.assethost.prefix  = "/api"
+  AssetHostClient.setup do |config|
+    config.server  = "assets.yoursite.org"
+    config.token  = "{your assethost token}"
+    config.prefix  = "/api"
+  end
 ```
 
 
@@ -32,14 +32,14 @@ Configure your app to connect to assethost, either in an initializer or your env
 
 `AssetHost::Asset.find(asset_id)`
 
-You should also provide fallback JSON files at 
-`lib/asset_host_client/fallback/asset.json` and 
+You should also provide fallback JSON files at
+`lib/asset_host_client/fallback/asset.json` and
 `lib/asset_host_client/fallback/outputs.json`.
 
 This is so that if the API is unavailable for some reason, it won't bring
 your entire website down. You can override that path by setting
-`AssetHost.fallback_root = Rails.root.join('lib', 'fallbacks')` 
-in an initializer.
+`config.fallback_root = Rails.root.join('lib', 'fallbacks')`
+in your initializer.
 
 
 ### Creating
