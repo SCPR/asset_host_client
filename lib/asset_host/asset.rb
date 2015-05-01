@@ -3,9 +3,12 @@ require 'faraday_middleware'
 
 module AssetHost
   class Asset
+    class ConnectionError < StandardError
+    end
+
     class Fallback < Asset
       def initialize
-        json = JSON.parse(File.read(File.join(AssetHost.fallback_root, "asset.json")))
+        json = JSON.parse(File.read(File.join(AssetHostClient.fallback_root, "asset.json")))
         super(json)
       end
     end
@@ -17,7 +20,7 @@ module AssetHost
 
     class << self
       def config
-        @config ||= Rails.application.config.assethost
+        @config ||= AssetHostClient
       end
 
       #-------------------
@@ -33,7 +36,11 @@ module AssetHost
           response = connection.get "#{config.prefix}/outputs"
 
           if !GOOD_STATUS.include? response.status
-            outputs = JSON.parse(File.read(File.join(AssetHost.fallback_root, "outputs.json")))
+            if AssetHostClient.raise_on_errors
+              raise ConnectionError.new("AssetHost ConnectionError: #{ response.status } (#{config.prefix}/outputs)")
+            else
+              outputs = JSON.parse(File.read(File.join(AssetHostClient.fallback_root, "outputs.json")))
+            end
           else
             outputs = response.body
             Rails.cache.write(key, outputs)
@@ -58,7 +65,11 @@ module AssetHost
         json = response.body
 
         if !GOOD_STATUS.include?(response.status.to_i) || !json
-          asset = Fallback.new
+          if AssetHostClient.raise_on_errors
+            raise ConnectionError.new("AssetHost ConnectionError: #{ response.status } (#{config.prefix}/outputs)")
+          else
+            asset = Fallback.new
+          end
         else
           asset = new(json)
           Rails.cache.write(key, json)

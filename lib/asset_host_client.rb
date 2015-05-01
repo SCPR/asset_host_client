@@ -1,7 +1,17 @@
 require "asset_host_client/version"
+require "asset_host_client/engine"
 require 'asset_host'
 
-# This module is just the gem name.
-# AssetHost is the real stuff.
 module AssetHostClient
+  class << self
+    mattr_accessor :fallback_root, :server, :prefix, :token, :raise_on_errors
+
+    # set some defaults
+    self.prefix           = "/api"
+    self.raise_on_errors  = false
+  end
+
+  def self.setup
+    yield self
+  end
 end
