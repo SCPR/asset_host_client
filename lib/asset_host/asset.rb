@@ -105,7 +105,7 @@ module AssetHost
           Faraday.new(
             :url    => "https://#{config.server}",
             :params => { auth_token: config.token },
-            :ssl => {version: :SSLv2}
+            :ssl => {verify: false}
           ) do |conn|
             conn.use FaradayMiddleware::FollowRedirects
             conn.request :json
