@@ -103,9 +103,11 @@ module AssetHost
       def connection
         @connection ||= begin
           Faraday.new(
-            :url    => "http://#{config.server}",
-            :params => { auth_token: config.token }
+            :url    => "https://#{config.server}",
+            :params => { auth_token: config.token },
+            :ssl => {version: :SSLv2}
           ) do |conn|
+            conn.use FaradayMiddleware::FollowRedirects
             conn.request :json
             conn.response :json
             conn.adapter Faraday.default_adapter
