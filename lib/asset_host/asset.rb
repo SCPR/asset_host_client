@@ -103,7 +103,7 @@ module AssetHost
       def connection
         @connection ||= begin
           Faraday.new(
-            :url    => "https://#{config.server}",
+            :url    => "#{config.protocol || 'https'}://#{config.server}",
             :params => { auth_token: config.token },
             :ssl => {verify: false}
           ) do |conn|
