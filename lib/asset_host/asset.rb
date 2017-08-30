@@ -72,7 +72,7 @@ module AssetHost
           end
         else
           asset = new(json)
-          Rails.cache.write(key, json)
+          Rails.cache.write(key, json, {expires_in: 1.minute})
         end
 
         asset
