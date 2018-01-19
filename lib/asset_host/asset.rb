@@ -57,7 +57,7 @@ module AssetHost
       def find(id)
         key = "asset/asset-#{id}"
 
-        if cached = Rails.cache.fetch(key, expires_in: 1.minute)
+        if cached = Rails.cache.fetch(key, {expires_in: 1.minute})
           return new(cached)
         end
 
