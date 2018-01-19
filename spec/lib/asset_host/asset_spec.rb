@@ -76,7 +76,7 @@ describe AssetHost::Asset do
 
     context "good response" do
       it "writes to cache" do
-        Rails.cache.should_receive(:write).with("asset/asset-1", load_fixture("asset.json"))
+        Rails.cache.should_receive(:write).with("asset/asset-1", load_fixture("asset.json"), {expires_in: 1.minute})
         AssetHost::Asset.find(1)
       end
 
