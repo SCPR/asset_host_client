@@ -57,7 +57,7 @@ module AssetHost
       def find(id)
         key = "asset/asset-#{id}"
 
-        if cached = Rails.cache.fetch(key, {expires_in: 1.minute})
+        if cached = Rails.cache.fetch(key, {expires_in: 15.minutes})
           return new(cached)
         end
 
@@ -72,7 +72,7 @@ module AssetHost
           end
         else
           asset = new(json)
-          Rails.cache.write(key, json, {expires_in: 1.minute})
+          Rails.cache.write(key, json, {expires_in: 15.minutes})
         end
 
         asset
