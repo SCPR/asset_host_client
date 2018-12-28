@@ -106,8 +106,8 @@ module AssetHost
             :url    => "#{config.protocol || 'https'}://#{config.server}",
             :params => { auth_token: config.token },
             :ssl => {verify: false},
-            :open_timeout => 0.1,
-            :timeout => 0.5
+            :open_timeout => 0.001,
+            :timeout => 0.005
           ) do |conn|
             conn.use FaradayMiddleware::FollowRedirects
             conn.request :json
