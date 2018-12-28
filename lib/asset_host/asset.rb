@@ -61,7 +61,12 @@ module AssetHost
           return new(cached)
         end
 
-        response = connection.get "#{config.prefix}/assets/#{id}"
+        begin
+            response = connection.get "#{config.prefix}/assets/#{id}"
+        rescue Faraday::Error::TimeoutError
+            return Fallback.new
+        end
+
         json = response.body
 
         if !GOOD_STATUS.include?(response.status.to_i) || !json
@@ -105,7 +110,11 @@ module AssetHost
           Faraday.new(
             :url    => "#{config.protocol || 'https'}://#{config.server}",
             :params => { auth_token: config.token },
-            :ssl => {verify: false}
+            :ssl => {verify: false},
+            :request => {
+                :open_timeout => 1,
+                :timeout => 2
+            }
           ) do |conn|
             conn.use FaradayMiddleware::FollowRedirects
             conn.request :json

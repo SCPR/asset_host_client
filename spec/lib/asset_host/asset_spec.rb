@@ -54,6 +54,16 @@ describe AssetHost::Asset do
       FakeWeb.last_request.path.should match "api/assets/1"
     end
 
+    context "faraday timeout" do
+      before :each do
+        allow(AssetHost::Asset.connection).to receive(:get).and_raise(Faraday::Error::TimeoutError)
+      end
+
+      it "returns a fallback asset" do
+        AssetHost::Asset.find(1).should be_a AssetHost::Asset::Fallback
+      end
+    end
+
     context "bad response 500" do
       before :each do
         Faraday::Response.any_instance.stub(:status) { 500 }
@@ -76,7 +86,7 @@ describe AssetHost::Asset do
 
     context "good response" do
       it "writes to cache" do
-        Rails.cache.should_receive(:write).with("asset/asset-1", load_fixture("asset.json"), {expires_in: 1.minute})
+        Rails.cache.should_receive(:write).with("asset/asset-1", load_fixture("asset.json"), {expires_in: 30.minute})
         AssetHost::Asset.find(1)
       end
 
