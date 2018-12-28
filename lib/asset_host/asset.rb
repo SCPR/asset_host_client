@@ -64,9 +64,7 @@ module AssetHost
         begin
             response = connection.get "#{config.prefix}/assets/#{id}"
         rescue Faraday::Error::TimeoutError
-            response = Object.new
-            response.body = nil
-            response.status = nil
+            return Fallback.new
         end
 
         json = response.body
