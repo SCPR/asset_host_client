@@ -64,7 +64,7 @@ module AssetHost
         begin
             response = connection.get "#{config.prefix}/assets/#{id}"
         rescue
-            response = { body: nil, status: nil }
+            {}
         end
 
         json = response.body
