@@ -112,8 +112,8 @@ module AssetHost
             :params => { auth_token: config.token },
             :ssl => {verify: false},
             :request => {
-                :open_timeout => 1,
-                :timeout => 2
+                :open_timeout => config.open_timeout || 1,
+                :timeout => config.timeout || 2
             }
           ) do |conn|
             conn.use FaradayMiddleware::FollowRedirects

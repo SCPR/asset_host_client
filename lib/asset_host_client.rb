@@ -4,7 +4,8 @@ require 'asset_host'
 
 module AssetHostClient
   class << self
-    mattr_accessor :fallback_root, :server, :prefix, :token, :raise_on_errors, :protocol
+    mattr_accessor :fallback_root, :server, :prefix, :token, :raise_on_errors,
+                   :protocol, :open_timeout, :timeout
 
     # set some defaults
     self.prefix           = "/api"
